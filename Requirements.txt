@@ -1,10 +1,10 @@
 Description of the funcionality necessary for the Geant Exascale Proxy
 -----------------------------------------------------------------------
 
-The proxy should be a standalone application with the GDML interface using,
-for example the CMS detector geometry description and a Liqui Argon TPC and
-a magnetic field.  It should provides interfaces to configure different
-configurations of physics lists, (GDML) detector descriptions and input event types.
+The proxy should be a standalone application with a mean to explore various detector
+layouts, for example the CMS detector and a Liqui Argon TPC bothwith a variable
+magnetic field.  It should provides interfaces to configure different
+configurations of physics lists, detector descriptions (eg. GDML) and input event types.
 
 The proxy should support the option to transport charged particle in a uniform
 magnetic field, and in a realistic magnetic field description used in typical
@@ -15,10 +15,10 @@ models required for most of HEP detector simulation including ionization,
 bremsstrahlung, multiple scattering models for electron and positron, and
 photoelectric, Compton scattering and pair-production models for photons.
 
-For event input, the proxy should supports the option to use HEPevents
-(for an example, BSM events from PYTHIA) as well as the particle gun with
+For event input, the proxy should supports the option to use a the particle gun with
 various customization (number of particles, particle types, random distributions
-of energy, eta, phi in given ranges).
+of energy, eta, phi in given ranges); the ability to also use HEPevents
+(for an example, BSM events from PYTHIA) would be a plus.
 
 The proxy should also provide an output representative a typical HEP experiment,
 for example the response for a (sub-set) of sensitive detector.
