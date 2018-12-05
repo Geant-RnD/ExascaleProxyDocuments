@@ -2,27 +2,27 @@
 Description of the functionality necessary for the Geant Exascale Proxy
 -----------------------------------------------------------------------
 
-The proxy should be a standalone application with a mean to explore various detector
-layouts, for example the CMS detector and a Liquid Argon TPC, both with a variable
-magnetic field.  It should provide interfaces to configure different
-configurations of physics lists, detector descriptions (eg. GDML) and input event types.
-
-The proxy should support the option to transport charged particles in a uniform
-magnetic field, and in a realistic magnetic field description used in typical
-HEP experiments.
+The proxy should be a standalone application with a mean to explore various
+detector layouts, for example the CMS detector and a Liquid Argon TPC.  It
+should provide interfaces to configure different configurations of physics lists,
+detector descriptions (eg. GDML) and input event types.  The proxy should support
+the option to transport charged particles in a uniform electromagnetic field, and
+in a realistic electromagnetic field description used in typical HEP experiments.
 
 The proxy should handle a standard set of electromagnetic physics processes and
 models required for most of HEP detector simulation, including ionization,
 bremsstrahlung, multiple scattering models for electron and positron, and
 photoelectric, Compton scattering and pair-production models for photons.
+The proxy should also support a minimal set of hadronic physics models for proton,
+neutron, pions and Kaons as well as a capability of a parameterized particle
+shower simulation.
 
 For event input, the proxy should support the option to use a particle gun with
 various customizations (number of particles, particle types, random distributions
 of energy, eta, phi in given ranges); the ability to also use HEPevents
-(for an example, BSM events from PYTHIA) would be a plus.
-
-The proxy should also produce output data representative of a typical HEP experiment,
-for example digitized hits (scoring) in sensitive detectors.
+(for an example, BSM events from PYTHIA) would be a plus.  The proxy should also
+produce output data representative of a typical HEP experiment, for example
+digitized hits (scoring) in sensitive detectors.
 
 The proxy should include (directly or indirectly) the ability to measure
 scalabily, event throughput and memory usage under various configuration
