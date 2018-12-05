@@ -21,9 +21,6 @@ various customizations (number of particles, particle types, random distribution
 of energy, eta, phi in given ranges); the ability to also use HEPevents
 (for an example, BSM events from PYTHIA) would be a plus.
 
-The proxy should also provide an output representative of a typical HEP experiment,
-for example the response for a (sub-set of) sensitive detector(s).
-
 The proxy should also produce output data representative of a typical HEP experiment,
 for example digitized hits (scoring) in sensitive detectors.
 
