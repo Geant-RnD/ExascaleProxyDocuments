@@ -27,3 +27,9 @@ digitized hits (scoring) in sensitive detectors.
 The proxy should include (directly or indirectly) the ability to measure
 scalabily, event throughput and memory usage under various configuration
 settings, including multi-threaded execution.
+
+An estimate of the date size for input events for a real physics process (for
+example Higgs -> ZZ , Z to all decays, O(1000) primary tracks) is in the order
+of 10's of kilobytes (for example 32K/event at the LHC energy).   A typical
+output rate is in the order of 1.5 MB per event (for simulated data, compared
+to about 1MB for the equivalent real data.)
