@@ -50,7 +50,7 @@ digitized hits (scoring) in sensitive detectors.
 
 The proxy should include (directly or indirectly) the ability to measure:
 
-1. scalabily
+1. scalability
 2. event throughput
 3. memory usage under various configuration settings, including multi-threaded execution
 
