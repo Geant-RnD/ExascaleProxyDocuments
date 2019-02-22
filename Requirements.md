@@ -7,6 +7,10 @@ detector layouts, for example the CMS detector and a Liquid Argon TPC.
 It should provide interfaces for configuration and options for transport, event input, and output
 and either indirectly or directly include performance measurement tools.
 
+The primary goal of the proxy is to explore the best ways to leverage the type of coprocessor
+(GPGPU) expected in the next generation of HPC machines (even if this require more code
+and dependency than a typical proxy application)
+
 ### Configuration interfaces
 
 1. physics lists
@@ -14,6 +18,15 @@ and either indirectly or directly include performance measurement tools.
 3. input event types
 
 ### Transport Options
+
+For a reasonably representative example (described in particle-proposal.md) of simulation,
+we find that processing photon, e-, e+, p+, p-, take have about 80% of the cpu time specifically
+dedicated to particle processing and represents 70% of the number of particles.  If we also
+include neutrons, pi+, pi-, and protons this goes up to 99% of the cpu time and 98% of the number
+of particles.  In addition the code for the simulating the former set exist in a easier-to-extract form
+than for the later set.
+
+Given these ratio, in the first phase the application should focus on:
 
 - charged particles in uniform electromagnetic field
 - realistic electromagnetic field description used in typical HEP experiments
@@ -26,6 +39,9 @@ and either indirectly or directly include performance measurement tools.
     - Photoelectric Effect
     - Compton Scattering
     - Pair-production
+
+and later extent to:
+
   - Hadronic physics models for:
     - Proton
     - Neutron
