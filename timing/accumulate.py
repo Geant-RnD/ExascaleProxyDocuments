@@ -459,14 +459,18 @@ def process(args):
 
     _particles = []
     _processes = []
+    _part_selection = []
+    _proc_selection = []
 
     def create_name(prefix, base):
         _ldash = base.rfind('/')
         if _ldash > 0:
             _ldash += 1
-            return base[:_ldash] + prefix + base[_ldash:]
+            fname = base[:_ldash] + prefix + base[_ldash:]
         else:
-            return prefix + base
+            fname = prefix + base
+        print("Creating output file: {}...".format(fname))
+        return fname
 
     def within_list(_key, _list):
         for _l in _list:
@@ -474,25 +478,43 @@ def process(args):
                 return True
         return False
 
+    def check_selection(_args, _key, _val, _dst):
+        if _args.selection is not None:
+            for _item in _args.selection:
+                if _item in _key:
+                    _dst.append(_val)
+
 
     _out_particles = open(create_name("particles_", args.output), 'w')
     _out_processes = open(create_name("processes_", args.output), 'w')
+    _out_part_selection = None
+    _out_proc_selection = None
+    if args.selection is not None:
+        _out_part_selection = open(create_name("particles_{}_".format(args.label), args.output), 'w')
+        _out_proc_selection = open(create_name("processes_{}_".format(args.label), args.output), 'w')
+
     _filter = ['nu_e', 'nu_mu', 'eta_prime', 'proton', 'neutron', 'lambda', 'sigma+',
               'sigma-', 'sigma0', 'xi0']
     try:
         for key, val in functions.items():
             if "_" in key and not within_list(key, _filter):
                 _processes.append(val)
+                check_selection(args, key, val, _proc_selection)
             else:
                 _particles.append(val)
+                check_selection(args, key, val, _part_selection)
 
         _particles.sort()
         _processes.sort()
+        _part_selection.sort()
+        _proc_selection.sort()
 
         _part_wall = 0.0
         _part_cpu = 0.0
         _proc_wall = 0.0
         _proc_cpu = 0.0
+        _asel_wall = 0.0
+        _asel_cpu = 0.0
 
         for _l in _particles:
             _part_wall += _l.wall()
@@ -518,8 +540,7 @@ def process(args):
             _wcum = 0.0
             _ccum = 0.0
             for _l in _list:
-                if n + 1 == len(_list) or n % 5 == 4:
-                    _l.delim_below = True
+                _l.delim_below = True if n + 1 == len(_list) or n % 5 == 4 else False
                 _wcum += _l.get('perc_wall')
                 _ccum += _l.get('perc_cpu')
                 _l.insert("agg_wall", _wcum)
@@ -535,6 +556,9 @@ def process(args):
 
         print_info("Particles", _particles, _out_particles, args.verbose)
         print_info("Processes", _processes, _out_processes, args.verbose)
+        if args.selection is not None:
+            print_info("Particles (selection)", _part_selection, _out_part_selection, args.verbose)
+            print_info("Processes (selection)", _proc_selection, _out_proc_selection, args.verbose)
 
     except Exception as e:
         exc_type, exc_value, exc_traceback = sys.exc_info()
@@ -552,6 +576,9 @@ if __name__ == "__main__":
     parser.add_argument("-o", "--output", help="Output file", default="out.txt", type=str)
     parser.add_argument("-i", "--input", help="Input files", nargs='*', type=str, required=True)
     parser.add_argument("-v", "--verbose", help="Verbose", type=int, default=0)
+    parser.add_argument("-s", "--selection", help="Select these particle type for additional analysis",
+                        nargs='*', type=str, default=None)
+    parser.add_argument("-l", "--label", help="Label the selection output file", type=str, default="selection")
     args = parser.parse_args()
 
     ret = 0
