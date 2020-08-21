@@ -77,3 +77,4 @@ example Higgs -> ZZ , Z to all decays, O(1000) primary tracks) is in the order
 of 10's of kilobytes (for example 32K/event at the LHC energy).   A typical
 output rate is in the order of 1.5 MB per event (for simulated data, compared
 to about 1MB for the equivalent real data.)
+
